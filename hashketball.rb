@@ -186,7 +186,7 @@ end
 return player_stats
 end
 
-def big_shoe_rebounds#return the number of rebounds associated with the player that has the largest shoe size
+def big_shoe_rebounds #return the number of rebounds associated with the player that has the largest shoe size
 rebound = []
 largestshoesize = 0
 game_hash.each do |location, team_hash|
@@ -198,4 +198,64 @@ game_hash.each do |location, team_hash|
   end
 end
 return rebound[0]
+end
+
+def most_points_scored #Which player has the most points
+  player = []
+  mostpoints = 0
+  game_hash.each do |location, team_hash|
+    team_hash[:players].each do |player_hash|
+      if player_hash[:points] > mostpoints
+      mostpoints = player_hash[:points]
+      player[0] = player_hash[:name]
+      end
+    end
+  end
+  return player[0]
+end
+
+def winning_team #Which team has the most points
+teampoints = {}
+game_hash.each do |location, team_hash|
+    team_hash[:players].each do |player_hash|
+    teampoints[location] = teampoints + player_hash[:points]
+  end
+end
+end
+end
+
+def player_with_longest_name #Which player has the longest name
+player = []
+longestname = 0
+game_hash.each do |location, team_hash|
+  team_hash[:players].each do |player_hash|
+    if player_hash[:name].length > longestname
+    longestname = player_hash[:name].length
+    player[0] = player_hash[:name]
+    end
+  end
+end
+return player[0]
+end
+
+def long_name_steals_a_ton?#returns true if the player with the longest name had the most steals
+  player_with_longest_name = []
+  player_with_most_steals = []
+  longestname = 0
+  moststeals = 0
+  game_hash.each do |location, team_hash|
+    team_hash[:players].each do |player_hash|
+      if player_hash[:name].length > longestname
+      longestname = player_hash[:name].length
+      player_with_longest_name[0] = player_hash[:name]
+      end
+      if player_hash[:steals] > moststeals
+      moststeals = player_hash[:steals]
+      player_with_most_steals = player_hash[:name]
+      end
+    end
+  end
+if player_with_most_steals = player_with_longest_name
+return true
+end
 end
