@@ -108,27 +108,94 @@ def game_hash
 end
 
 #def good_practices
-#  game_hash.each do |location, team_data|
-    #are you ABSOLUTELY SURE what 'location'(:home, :away) and 'team data' (all the data) are? use binding.pry to find out!
+#  game_hash.each do |location, team_hash|
+    #|key, value| are you ABSOLUTELY SURE what 'location'(:home, :away) and 'team hash' (the team hash) are? use binding.pry to find out!
 #binding.pry
-#    team_data.each do |attribute, data|
-      #are you ABSOLUTELY SURE what 'attribute' (:team_name, :color, :players) and 'team data' (:name, :number, etc) are? use binding.pry to find out!
+#    team_hash.each do |team_attribute, team_data|
+      #are you ABSOLUTELY SURE what 'attribute' (:team_name, :color, :players) and 'team_data' ("Brooklyn Nets", arrays) are? use binding.pry to find out!
 
 #binding.pry
       #what is 'data' at each loop throughout .each block? when will the following line of code work and when will it break?
-#      data.each do |data_item|
-          #binding.pry
+#      team_data.each do |array_or_string|
+#        array_or_string[0]
+ #binding.pry
 #      end
 #    end
 #  end
 #end
 #good_practices
 
-def num_points_scored(name)
-game_hash.each do |location, team_data|
-  player_data = team_data[:players]
-  player_data.each do |player|
-    player[:name] == name? player[:points]
+def num_points_scored(inputname) #returns the number of points scored for player name
+game_hash.each do |location, team_hash|
+  team_hash[:players].each do |player|
+    if player[:name] == inputname
+    return player[:points]
+    end
+  end
 end
 end
+
+def shoe_size(inputname) #returns the shoe size for that player
+game_hash.each do |location, team_hash|
+  team_hash[:players].each do |player|
+    if player[:name] == inputname
+    return player[:shoe]
+    end
+  end
+end
+end
+
+def team_colors(nameofteam)#returns array of that team colors
+game_hash.each do |location, team_hash|
+    if team_hash[:team_name] == nameofteam
+    return team_hash[:colors]
+  end
+end
+end
+
+def team_names#operates on the game hash to return an array of the team names
+team_array = []
+game_hash.each_with_index do |(location, team_data), n|
+  team_array[n] = team_data[:team_name]
+end
+return team_array
+end
+
+def player_numbers(teamname)#returns an array of the jersey number's for that team
+jersey_array = []
+game_hash.each do |location, team_hash|
+  if team_hash[:team_name] == teamname
+  team_hash[:players].each_with_index do |player, n|
+    jersey_array[n] = player[:number]
+    end
+  end
+end
+return jersey_array
+end
+
+def player_stats(player_name)#returns a hash of that player's stats
+player_stats = {}
+game_hash.each do |location, team_hash|
+  team_hash[:players].each do |player_hash|
+    if player_hash[:name] == player_name
+      player_stats = player_hash
+      player_stats.delete(:name)
+    end
+  end
+end
+return player_stats
+end
+
+def big_shoe_rebounds#return the number of rebounds associated with the player that has the largest shoe size
+rebound = []
+largestshoesize = 0
+game_hash.each do |location, team_hash|
+  team_hash[:players].each do |player_hash|
+    if player_hash[:shoe] > largestshoesize
+    largestshoesize = player_hash[:shoe]
+    rebound[0] = player_hash[:rebounds]
+    end
+  end
+end
+return rebound[0]
 end
