@@ -222,7 +222,7 @@ game_hash.each do |location, team_hash|
     teampoints[location] = (starting_points + player_hash[:points])
   end
 end
-return teampoints.max
+return (teampoints.max)[:teamname]
 end
 
 def player_with_longest_name #Which player has the longest name
