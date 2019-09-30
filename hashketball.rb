@@ -222,7 +222,6 @@ game_hash.each do |location, team_hash|
   end
 end
 end
-end
 
 def player_with_longest_name #Which player has the longest name
 player = []
